@@ -97,12 +97,12 @@ class DataSampler(Sampler):
         for _, start_idx in enumerate(range(0, n, self.batch_size)):
             end_idx = min(start_idx + self.batch_size, n)
             data_tr = self.sparse_data_tr[idxlist[start_idx:end_idx]]
-            data_tr = torch.FloatTensor(data_tr.toarray())
+            data_tr = torch.cuda.FloatTensor(data_tr.toarray())
 
             data_te = None
             if self.sparse_data_te is not None:
                 data_te = self.sparse_data_te[idxlist[start_idx:end_idx]]
-                data_te = torch.FloatTensor(data_te.toarray())
+                data_te = torch.cuda.FloatTensor(data_te.toarray())
 
             yield data_tr, data_te
 
